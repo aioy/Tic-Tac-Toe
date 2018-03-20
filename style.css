@@ -1,63 +1,70 @@
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ body{ 
+   background-color: rgba(244, 100, 0, 0.1);
+ }
 
+ .centered{
+   position:fixed;
+   top:50%;
+   left:50%;
+   transform: translate(-50%, -50%);
+ }
 /* choose x or o block */
 
 .shade {
-    z-index: 1;
-    position:absolute;
-    background: rgba(244, 100, 0, 0.1);
-    height: 100vh;
-    width: 100vw;
-    display:flex;
-    justify-content: center;
+  z-index: 1;
+  position:absolute;
+  height: 100%;
+  width: 100%;
+  display:flex;
+  justify-content: center;
+  align-items:center;
 }
 
 .box{
-    align-self: center;
-    padding: 1.250rem 1.875rem;
-    height: auto;
-    background-color: azure;
+  padding: 1.250rem 1.875rem;
+  height: auto;
+  background-color: azure;
+  top: 6em;
 }
 
 
 /* tic tac toe Board */
-
 table {
-    z-index: 0;
-    position:relative;
-    top: 8em;
-    margin:0 auto;
-    width: 30%;
-    border-collapse: collapse;
-  }
-  td {
-    width: 33.333%;
-    border: 6px solid #222;
-  }
-  td::after {
-    content: '';
-    display: block;
-    margin-top: 100%;
-  }
-  td {
-    border: 6px solid #222;
-  }
-  td:first-of-type {
-    border-left-color: transparent;
-    border-top-color: transparent;
-  }
-  td:nth-of-type(2) {
-    border-top-color: transparent;
-  }
-  td:nth-of-type(3) {
-    border-right-color: transparent;
-    border-top-color: transparent;
-  }
-  tr:nth-of-type(3) td {
-    border-bottom-color: transparent;
-  }
+  z-index: 0;
+  border-collapse: collapse;
+  table-layout:fixed;
+  display:flex;  
+  justify-content: center;
+}
+
+td {
+  width:188.8px;
+  height:188.8px;
+  border: 6px solid #222;
+  text-align: center;
+  vertical-align: middle;
+  font-size:100px ;
+}
+td {
+  border: 6px solid #222;
+}
+td:first-of-type {
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+td:nth-of-type(2) {
+  border-top-color: transparent;
+}
+td:nth-of-type(3) {
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+tr:nth-of-type(3) td {
+  border-bottom-color: transparent;
+}
