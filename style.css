@@ -8,18 +8,30 @@
 /* choose x or o block */
 
 .shade {
-    display:flex;
+    z-index: 1;
     position:absolute;
     background: rgba(244, 100, 0, 0.1);
     height: 100vh;
     width: 100vw;
+    display:flex;
+    justify-content: center;
+}
 
+.box{
+    align-self: center;
+    padding: 1.250rem 1.875rem;
+    height: auto;
+    background-color: azure;
 }
 
 
 /* tic tac toe Board */
+
 table {
-    margin: 12rem auto 0;
+    z-index: 0;
+    position:relative;
+    top: 8em;
+    margin:0 auto;
     width: 30%;
     border-collapse: collapse;
   }
