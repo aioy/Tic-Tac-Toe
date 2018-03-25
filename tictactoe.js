@@ -5,7 +5,7 @@ function game () {
   this.computer = null;
   this.playerMoves = [];
   this.computerMoves = [];
-  this.squares = document.querySelector(this.id);
+  this.squares = document.querySelectorAll('.play');
   this.winningCombos = [
     [1, 2, 3],[4, 5, 6],[7, 8, 9],
     [1, 4, 7],[2, 5, 8],[3, 6, 9],
@@ -13,12 +13,21 @@ function game () {
   ];
 }
 
-game.prototype.chooseSymbol = (symbol) => {
+game.prototype.chooseSymbol = function (symbol) {
     this.player = symbol;
     //choose computers symbol
     this.computer = symbol === 'x' ? 'o' : 'x';
 
     document.querySelector('.shade').style.display = 'none';
+    this.playerMove();
+}
+
+game.prototype.playerMove = function () {
+    for(let i = 0; i < this.squares.length; i++){
+        this.squares[i].addEventListener('click', () => {
+            console.log('hello');
+        })
+    }
 }
 
 const ticTacToe = new game();
