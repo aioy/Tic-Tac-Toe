@@ -72,7 +72,7 @@ tr:nth-of-type(3) td {
 /* replay button */
 
 .result{
-  display: none;
+  visibility: hidden;
 }
 
 .replayBox{

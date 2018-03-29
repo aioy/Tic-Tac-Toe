@@ -82,10 +82,11 @@ game.prototype.checkWin = function (player, name) {
     let win = this.winningCombos.some((ar) => ar.every((c) => player.includes(c)));
 
     if( win === true){
-        document.querySelector('.result').style.display = 'unset';
+        document.querySelector('.result').style.visibility = 'visible';
+        document.querySelector('#tie').textContent =  `${name} wins!`
     } else if (this.turns === 5){
-        let replayHTML = `<div class = 'shade'><div class = 'box replayBox'><h3>Tie!</h3><button id = 'replay'>Replay?</button></div></div>`
-        document.body.innerHTML += replayHTML;
+        document.querySelector('.result').style.visibility = 'visible';
+        document.querySelector('#tie').textContent =   `Tie!`
     }
 
     return Boolean(win);
