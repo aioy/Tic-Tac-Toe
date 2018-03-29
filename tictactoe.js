@@ -3,14 +3,14 @@
 function game () {
   this.player = null;
   this.computer = null;
-  this.playerMoves = [];
-  this.computerMoves = [];
+  this.turns = 0;
+  this.playerChoices = [];
+  this.computerChoices = [];
   this.squares = document.querySelectorAll('.play');
   this.spotsLeft = [0,1,2,3,4,5,6,7,8];
   this.winningCombos = [
-    [0, 1, 2],[3, 6, 5],[6, 7, 8],
-    [0, 3, 6],[1, 4, 7],[2, 5, 8],
-    [0, 4, 8],[2, 4, 6]
+    [0, 1, 2],[6, 7, 8],[0, 3, 6],[1, 4, 7],[2, 5, 8],
+    [0, 4, 8],[2, 4, 6], [3,4,5]
   ];
 
   for(let i = 0; i < this.squares.length; i++){
@@ -33,7 +33,9 @@ game.prototype.playerMove = function (i) {
     if(this.squares[i].classList.contains('play')){
         
         this.squares[i].textContent = this.player;
-        
+
+        this.turns++; console.log(this.turns);
+
         //remove to prevent overwriting text content on computer move and make player move array
         this.squares[i].classList.remove('play');
         
@@ -43,21 +45,21 @@ game.prototype.playerMove = function (i) {
         this.spotsLeft.splice(index, 1);
         
         //push to array to compare for win
-        this.playerMoves.push(i); 
-        
-        setInterval(this.computerMove(), 2000);
+        this.playerChoices.push(i); 
 
-        console.log(this.playerMoves + ' player');
+        this.checkWin(this.playerChoices, 'Player');
+        
+       if(this.checkWin(this.playerChoices, 'Player') === false){
+           this.computerMove();
+       }
+       
     }
 }
 
 //chooses spot randomly
 game.prototype.computerMove = function () {
     let random = this.spotsLeft[Math.floor(Math.random() * this.spotsLeft.length)]
-    if(!this.squares[random]){
-        console.log('tie');
-        return;
-    }
+
     this.squares[random].textContent = this.computer;
     
     //remove to prevent choosing again
@@ -67,10 +69,33 @@ game.prototype.computerMove = function () {
     
     this.squares[random].classList.remove('play');
 
-    this.computerMoves.push(random);
+    this.computerChoices.push(random);
 
-    console.log(this.computerMoves + ' computer');
+    this.checkWin(this.computerChoices, 'Computer');
+
 }
+
+//compare player or computer arrays to check for win or tie
+game.prototype.checkWin = function (player, name) {
+    console.log(name);
+
+    let win = this.winningCombos.some((ar) => ar.every((c) => player.includes(c)));
+
+    if( win === true){
+        document.querySelector('.result').style.display = 'unset';
+    } else if (this.turns === 5){
+        let replayHTML = `<div class = 'shade'><div class = 'box replayBox'><h3>Tie!</h3><button id = 'replay'>Replay?</button></div></div>`
+        document.body.innerHTML += replayHTML;
+    }
+
+    return Boolean(win);
+
+}
+
+game.prototype.restart = function () {
+
+}
+
 
 const ticTacToe = new game();
 
@@ -81,5 +106,3 @@ document.querySelector('#playx').addEventListener('click', () => {
 document.querySelector('#playo').addEventListener('click', () => {
     ticTacToe.chooseSymbol('o')
 });
-
- 	
