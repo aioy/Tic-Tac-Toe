@@ -25,7 +25,7 @@ game.prototype.chooseSymbol = function (symbol) {
     //choose computers symbol
     this.computer = symbol === 'x' ? 'o' : 'x';
 
-    document.querySelector('.shade').style.display = 'none';
+    document.querySelector('.sign').style.visibility = 'hidden';
     
 }
 
@@ -94,7 +94,27 @@ game.prototype.checkWin = function (player, name) {
 }
 
 game.prototype.restart = function () {
-
+    
+    document.querySelector('.result').style.visibility = 'hidden';
+    
+    document.querySelector('.sign').style.visibility = 'visible';
+    
+    this.player = null;
+    
+    this.computer = null;
+   
+    this.turns = 0;
+   
+    this.playerChoices = [];
+   
+    this.computerChoices = [];
+   
+    this.spotsLeft = [0,1,2,3,4,5,6,7,8];
+   
+    for(let i = 0; i < this.squares.length; i++){
+        this.squares[i].classList.add('play');
+        this.squares[i].textContent = ' ';
+    }
 }
 
 
@@ -107,3 +127,7 @@ document.querySelector('#playx').addEventListener('click', () => {
 document.querySelector('#playo').addEventListener('click', () => {
     ticTacToe.chooseSymbol('o')
 });
+
+document.querySelector('#replay').addEventListener('click', () => {
+    ticTacToe.restart();
+})
