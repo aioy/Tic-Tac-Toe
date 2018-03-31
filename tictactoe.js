@@ -1,13 +1,9 @@
 'use strict'
 
 function game () {
-  this.player = null;
-  this.computer = null;
-  this.turns = 0;
-  this.playerChoices = [];
-  this.computerChoices = [];
   this.squares = document.querySelectorAll('.play');
-  this.spotsLeft = [0,1,2,3,4,5,6,7,8];
+  this.setupInitialState();
+
   this.winningCombos = [
     [0, 1, 2],[6, 7, 8],[0, 3, 6],[1, 4, 7],[2, 5, 8],
     [0, 4, 8],[2, 4, 6], [3,4,5]
@@ -19,6 +15,15 @@ function game () {
     }).bind(this));
   }
 }
+
+game.prototype.setupInitialState = function() {
+    this.player = null;
+    this.computer = null;
+    this.turns = 0;
+    this.playerChoices = [];
+    this.computerChoices = [];
+    this.spotsLeft = [0,1,2,3,4,5,6,7,8];
+  }
 
 game.prototype.chooseSymbol = function (symbol) {
     this.player = symbol;
@@ -94,23 +99,12 @@ game.prototype.checkWin = function (player, name) {
 }
 
 game.prototype.restart = function () {
-    
+
     document.querySelector('.result').style.visibility = 'hidden';
-    
+
     document.querySelector('.sign').style.visibility = 'visible';
-    
-    this.player = null;
-    
-    this.computer = null;
-   
-    this.turns = 0;
-   
-    this.playerChoices = [];
-   
-    this.computerChoices = [];
-   
-    this.spotsLeft = [0,1,2,3,4,5,6,7,8];
-   
+    this.setupInitialState();
+
     for(let i = 0; i < this.squares.length; i++){
         this.squares[i].classList.add('play');
         this.squares[i].textContent = ' ';
